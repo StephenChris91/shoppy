@@ -1,7 +1,16 @@
+import Hero from "./Components/Hero";
+import Layout from "./Components/Layout";
+import Navbar from "./Components/Navbar";
+
+//styles
+
 function App() {
   return (
     <div className="">
-      <h1>Home</h1>
+      <Layout>
+        <Navbar />
+      </Layout>
+      <Hero />
     </div>
   );
 }
