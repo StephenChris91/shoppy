@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import  commerce  from '../Utils/libs/commerce'
+import Product from './Product'
 
 
 const ProductList = () => {
@@ -19,13 +20,10 @@ const ProductList = () => {
     return ( 
         <>
         <div>
-            <h1>Featured Products</h1>
-            <div>
+            <h1 className='text-center text-5xl font-bold mt-24 mb-10'>Featured Products</h1>
+            <div className='grid gap-4 lg:grid-cols-3 sm:grid-cols-1 lg:grid-rows-3 sm:grid-rows-1 lg:pr-32 lg:pl-32 mb-10 '>
                 {products.map(item => (
-                    <div key={item.id}>
-                        <h1>{item.name}</h1>
-                        <img src={item.image.url} alt={item.id} />
-                    </div>
+                    <Product  key={item.id} product={item}/>
                 ))}
             </div>
         </div>

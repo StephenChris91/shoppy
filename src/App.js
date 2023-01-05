@@ -1,3 +1,4 @@
+import Footer from "./Components/Footer";
 import Hero from "./Components/Hero";
 import Layout from "./Components/Layout";
 import Navbar from "./Components/Navbar";
@@ -10,9 +11,10 @@ function App() {
     <div className="">
       <Layout>
         <Navbar />
+        <Hero />
+        <ProductList />
+        <Footer />
       </Layout>
-      <Hero />
-      <ProductList />
     </div>
   );
 }
