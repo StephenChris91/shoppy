@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
-import { NavLink } from 'react-router-dom'
 import { elastic as Menu } from 'react-burger-menu'
 
 //styles 
@@ -46,7 +45,7 @@ const Navbar = () => {
             <FaBars className='font-bold text-white text-2xl bm-burger-button lg:invisible sm:visible' onClick={showMenu}/>
             <div id='page-wrap' className="navbar bg-black lg:pr-20 lg:pl-20">
                 <div className="flex-1">
-                    <h1 id='logo' className="normal-case text-bold text-xl text-white">SHOPPY</h1>
+                    <h1 id='logo' className="normal-case text-bold text-xl text-white">PIZZA EXPRESS</h1>
                 </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">
