@@ -11,22 +11,34 @@ const Navbar = () => {
 
     const [toggled, setToggled] = useState(false)
     const [cart, setCart] = useState([])
+    const [cartTotal, setCartTotal] = useState()
 
-    const cartState = useSelector(state => state.cart.value)
 
     const showMenu = (event) => {
         event.preventDefault()
         setToggled(true)
     }
 
+   
     const getCartItems = async () => {
         const cartItems = await commerce.cart.contents()
         setCart(cartItems)
     }
 
+    const getTotal = async () => {
+        const { subtotal } = await commerce.cart.retrieve()
+        setCartTotal(subtotal.formatted_with_symbol)
+        console.log(cartTotal)
+    }
+    
     useEffect(() => {
+        const controller = new AbortController();
+        
         getCartItems()
-    }, [cart])
+        getTotal()
+        
+        return () => controller.abort();
+    }, [cartTotal])
     return ( 
         <div id='outer-container'>
             { toggled ? 
@@ -44,7 +56,7 @@ const Navbar = () => {
                     <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                         <div className="card-body">
                         <span className="font-bold text-lg">{cart.length}</span>
-                        <span className="text-info">Subtotal: $999</span>
+                        <span className="text-info">{`Subtotal: `}</span>
                         <div className="card-actions">
                             <button className="btn bg-black btn-block text-white">View cart</button>
                         </div>
@@ -68,10 +80,22 @@ const Navbar = () => {
                         <span className="badge badge-sm indicator-item text-white">{cart.length}</span>
                         </div>
                     </label>
-                    <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
+                    <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-72 bg-base-100 shadow">
                         <div className="card-body">
                         <span className="font-bold text-lg">{`${cart.length} items`}</span>
-                        <span className="text-info">Subtotal: $999</span>
+                        <div className='flex-col gap-1'>
+                            {cart && cart.map(cart=> (
+                                <div className='flex items-start justify-between mx-auto mb-4 shadow-sm bg-gray-100 rounded-sm p-2' key={cart.id}>
+                                    <img src={cart.image.url} alt={cart.name} className='w-24 rounded-sm'/>
+                                    <div className='flex flex-col items-end'>
+                                        <h2 className='font-bold'>{cart.name}</h2>
+                                        <h3>{cart.price.formatted_with_symbol}</h3>
+                                        <h3>{`Qty: ${cart.quantity}`}</h3>
+                                    </div>
+                                </div>
+                            ))}
+                            <span className="text-danger">{`Subtotal: ${cartTotal}`}</span>
+                        </div>
                         <div className="card-actions">
                             <button className="btn bg-black btn-block text-white">View cart</button>
                         </div>
