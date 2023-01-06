@@ -1,7 +1,10 @@
 import { FaShoppingCart  } from 'react-icons/fa'
+import { ToastContainer} from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 
 
-const Product = ( { product } ) => {
+
+const Product = ( { product, addToCart } ) => {
 
     const { id, image, name, price, description } = product
 
@@ -21,7 +24,8 @@ const Product = ( { product } ) => {
                 <h4 className='card-description'>{describe}</h4>
                 <div className="card-actions justify-end">
                 <div className="badge badge-outline mt-3">{price.formatted_with_symbol}</div>
-                <FaShoppingCart className='text-2xl mt-3 cursor-pointer' onClick={() => console.log('clicked cart')}/>
+                <FaShoppingCart className='text-2xl mt-3 cursor-pointer' onClick={() => addToCart(id)}/>
+                <ToastContainer />
                 </div>
             </div>
         </div>
