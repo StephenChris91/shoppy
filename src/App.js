@@ -3,6 +3,7 @@ import Hero from "./Components/Hero";
 import Layout from "./Components/Layout";
 import Navbar from "./Components/Navbar";
 import ProductList from "./Components/ProductList";
+import { ToastContainer } from "react-toastify";
 
 //styles
 

@@ -3,13 +3,13 @@ import { FaShoppingCart  } from 'react-icons/fa'
 
 const Product = ( { product } ) => {
 
-    const { image, name, price, description } = product
+    const { id, image, name, price, description } = product
 
     const desc1 = description.slice(3)
     const desc2 = description.slice(-3)
     const joined = desc1.concat(desc2)
     const describe = joined.slice(0, joined.length -7)
-    console.log(describe)
+    
     return ( 
         <div className="card w-96 bg-base-100 shadow-xl">
             <figure><img src={image.url} alt={name} /></figure>
