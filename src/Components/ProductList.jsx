@@ -19,8 +19,8 @@ const ProductList = () => {
     const [isLoading, setIsLoading] = useState(null)
     const [color, setColor] = useState('#fff')
 
-    const dispatch = useDispatch()
-    const state = useSelector(state => state.cart.value)
+     const dispatch = useDispatch()
+     const state = useSelector(state => state.cart.value)
 
     const getProducts = async () => {
         
@@ -29,20 +29,24 @@ const ProductList = () => {
         
     }
 
-    const addToCart = async (id) => {
-        const addItem = await commerce.cart.add(id)
-        console.log(addItem)
-        dispatch(ADD_TO_CART(addItem))
-        toast.success("Product Added to Cart!", {
-            position: toast.POSITION.TOP_CENTER
+    const addToCart = async (id, qty) => {
+       const addedItem = commerce.cart.add(id, qty).then((item) => {
+            console.log(item)
+          }).catch((error) => {
+            console.error('There was an error adding the item to the cart', error);
           });
+        
+          dispatch(ADD_TO_CART(addedItem))
+
     }
 
     useEffect(() => {
         setIsLoading(true)
         getProducts()
         setIsLoading(false)
-    }, [getProducts])
+    }, [getProducts, addToCart])
+
+
     return ( 
         <>
         <div>

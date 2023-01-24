@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react'
 import { FaBars } from 'react-icons/fa'
 import { elastic as Menu } from 'react-burger-menu'
-import { useSelector } from 'react-redux'
+import { FaRegTrashAlt } from 'react-icons/fa'
 import commerce from '../Utils/libs/commerce'
+import {useNavigate} from 'react-router-dom'
 
 //styles 
 import './Navbar.css'
 
-const Navbar = () => {
+const Navbar = ( ) => {
 
     const [toggled, setToggled] = useState(false)
     const [cart, setCart] = useState([])
     const [cartTotal, setCartTotal] = useState()
 
+    const navigate = useNavigate()
 
     const showMenu = (event) => {
         event.preventDefault()
@@ -30,15 +32,17 @@ const Navbar = () => {
         setCartTotal(subtotal.formatted_with_symbol)
         console.log(cartTotal)
     }
+
+    const removeFromCart = async (id) => {
+        const item = cart.map(cartItem => cartItem.id)
+        const removeItem = await commerce.cart.remove(item)
+    }
     
-    useEffect(() => {
-        const controller = new AbortController();
-        
+    useEffect(() => {        
         getCartItems()
         getTotal()
         
-        return () => controller.abort();
-    }, [cartTotal])
+    }, [cart, cartTotal, getTotal])
     return ( 
         <div id='outer-container'>
             { toggled ? 
@@ -92,12 +96,13 @@ const Navbar = () => {
                                         <h3>{cart.price.formatted_with_symbol}</h3>
                                         <h3>{`Qty: ${cart.quantity}`}</h3>
                                     </div>
+                                    <FaRegTrashAlt className='cursor-pointer' onClick={() => {removeFromCart(cart.id)}}/>
                                 </div>
                             ))}
                             <span className="text-danger">{`Subtotal: ${cartTotal}`}</span>
                         </div>
                         <div className="card-actions">
-                            <button className="btn bg-black btn-block text-white">View cart</button>
+                            <button className="btn bg-black btn-block text-white" onClick={() => navigate('/cart')}>View cart</button>
                         </div>
                         </div>
                     </div>
