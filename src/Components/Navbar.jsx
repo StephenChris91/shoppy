@@ -4,6 +4,7 @@ import { elastic as Menu } from 'react-burger-menu'
 import { FaRegTrashAlt } from 'react-icons/fa'
 import commerce from '../Utils/libs/commerce'
 import {useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 //styles 
 import './Navbar.css'
@@ -34,8 +35,7 @@ const Navbar = ( ) => {
     }
 
     const removeFromCart = async (id) => {
-        const item = cart.map(cartItem => cartItem.id)
-        const removeItem = await commerce.cart.remove(item)
+        const removeItem = await commerce.cart.remove(id).then(rmvItem => console.log(rmvItem))
     }
     
     useEffect(() => {        
@@ -62,7 +62,7 @@ const Navbar = ( ) => {
                         <span className="font-bold text-lg">{cart.length}</span>
                         <span className="text-info">{`Subtotal: `}</span>
                         <div className="card-actions">
-                            <button className="btn bg-black btn-block text-white">View cart</button>
+                            <button className="btn bg-black btn-block text-white" onClick={() => navigate('/cart')}>View cart</button>
                         </div>
                         </div>
                     </div>
@@ -74,7 +74,9 @@ const Navbar = ( ) => {
             <FaBars className='font-bold text-white text-2xl bm-burger-button lg:invisible sm:visible' onClick={showMenu}/>
             <div id='page-wrap' className="navbar bg-black lg:pr-20 lg:pl-20">
                 <div className="flex-1">
-                    <h1 id='logo' className="normal-case text-bold text-xl text-white">PIZZA EXPRESS</h1>
+                    <Link to='/'>
+                        <h1 id='logo' className="normal-case text-bold text-xl text-white">PIZZA EXPRESS</h1>
+                    </Link>
                 </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">

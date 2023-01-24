@@ -12,7 +12,7 @@ const Cart = () => {
 
     return ( 
     <>
-        <div className="flex items-center justify-between  p-10">
+        <div className="flex items-center justify-between px-40 py-20">
             <div id="cart-section" className="w-3/4 border">
                 <h1 className="text-left font-bold text-2xl">Summary</h1>
             </div>

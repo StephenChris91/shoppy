@@ -30,13 +30,13 @@ const ProductList = () => {
     }
 
     const addToCart = async (id, qty) => {
-       const addedItem = commerce.cart.add(id, qty).then((item) => {
+       const addedItem = await commerce.cart.add(id, qty).then((item) => {
+        dispatch(ADD_TO_CART(item))
             console.log(item)
           }).catch((error) => {
             console.error('There was an error adding the item to the cart', error);
           });
         
-          dispatch(ADD_TO_CART(addedItem))
 
     }
 

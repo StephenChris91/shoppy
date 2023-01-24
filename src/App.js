@@ -2,20 +2,20 @@ import Footer from "./Components/Footer";
 import Hero from "./Components/Hero";
 import Layout from "./Components/Layout";
 import Navbar from "./Components/Navbar";
-import ProductList from "./Components/ProductList";
 import { ToastContainer } from "react-toastify";
-
+import { BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Cart from "./Pages/Cart";
+import Home from "./Pages/Home";
 //styles
 
 function App() {
   return (
     <div className="">
-      <Layout>
-        <Navbar />
-        <Hero />
-        <ProductList />
-        <Footer />
-      </Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
     </div>
   );
 }
